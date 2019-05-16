@@ -7,6 +7,7 @@
 #include "gy30.h"
 #include "mcp3201.h"
 #include "rdsoil3.hpp"
+#include "bme280.h"
 
 template<class T, class Func, unsigned int... S>
 void forEachHelper(T &&t, Func &&f, std::integer_sequence<unsigned int, S...>)
@@ -50,8 +51,9 @@ int main()
 	Pomi::GY30 gy30(Pomi::GY30::Mode::ONE_TIME, Pomi::GY30::Resolution::HIGH);
 	Pomi::MCP3201 mcp3201{Pomi::SPIDevice::Channel::ZERO};
 	Pomi::RDSOIL3<Pomi::MCP3201> rdsoil3{mcp3201};
+	Pomi::BME280 bme280;
 
-	auto sensors = std::make_tuple(gy30, rdsoil3);
+	auto sensors = std::make_tuple(gy30, rdsoil3, bme280);
 
 	forEach(sensors, persister);
 
