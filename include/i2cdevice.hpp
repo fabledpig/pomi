@@ -24,6 +24,9 @@ namespace Pomi {
 		template <size_t N>
 		using Data = std::array<Byte, N>;
 
+		static void write(int id, Address regAddr, Byte *data, size_t len);
+		static void read(int id, Address regAddr, Byte *data, size_t len);
+
 		explicit I2CDevice(Address addr);
 		inline ~I2CDevice();
 
@@ -34,6 +37,7 @@ namespace Pomi {
 		void write(Address regAddr, const Data<N> &data);
 		template <size_t N>
 		Data<N> read(Address regAddr);
+		inline int getFileDescriptor();
 	};
 
 	I2CDevice::I2CDevice() :
@@ -79,6 +83,11 @@ namespace Pomi {
 		::read(fd, data.data(), N);
 
 		return data;
+	}
+
+	int I2CDevice::getFileDescriptor()
+	{
+		return fd;
 	}
 }
 

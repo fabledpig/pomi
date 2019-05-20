@@ -8,7 +8,9 @@ add_executable (pomi
   src/i2cdevice.cpp
   src/gy30.cpp
   src/spidevice.cpp
-  src/sensordata.cpp)
+  src/sensordata.cpp
+  src/bme280.cpp
+  BME280_driver/bme280.c)
 
 target_link_libraries (pomi mysqlclient)
-target_include_directories (pomi PUBLIC include)
+target_include_directories (pomi PUBLIC include .)
